@@ -1,0 +1,13 @@
+
+.border{
+  box-shadow: 2px 2px lightgrey;
+}
+.row:hover, pointer:hover{
+  cursor: pointer;
+}
+.fa-plus-circle{
+  color: limegreen;
+}
+#plot{
+  height: 150px;
+}
