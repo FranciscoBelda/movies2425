@@ -6,6 +6,8 @@ import { ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import { NgbModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ModalComponent} from "../modal/modal.component";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons/faTrashCan";
 
 @Component({
   selector: 'app-movie-list',
@@ -92,4 +94,7 @@ export class MovieListComponent {
     }
 
   }
+
+  protected readonly faTrash = faTrash;
+  protected readonly faTrashCan = faTrashCan;
 }

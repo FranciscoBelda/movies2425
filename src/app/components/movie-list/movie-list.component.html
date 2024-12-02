@@ -10,29 +10,29 @@
   <div class="container">
     @for (movie of movies; track movie._id) {
       <div class="row border rounded">
-        <div class="col-md-11">
+        <div class="col-md-2 align-self-center">
+          <img src="{{movie.poster ||'assets/images/no-image-icon.jpg'}}" alt="{{movie.title}}" class="img-fluid">
+        </div>
+        <div class="col-md-8">
           <div (click)="loadMovie(movie)" class="row mt-3 pt-2">
-            <div class="col-md-2">
-              <img src="{{movie.poster ||'assets/images/no-image-icon.jpg'}}" alt="{{movie.title}}" class="img-fluid">
-            </div>
-            <div class="col-md-9">
+
+            <div class="col-md-12">
               <h5>{{ movie.title }}</h5>
               <small class="text-danger">{{ movie.genres }}</small>
               <p><b>Director</b>: {{ movie.director }} - <b>Year</b>:
                 {{ movie.year }}</p>
               <small>{{ movie.plot }}</small>
             </div>
-            <div class="col-md-1 align-self-center align-middle">
-              <small class="badge p-3" [ngClass]="{'bg-success':movie.imdb.rating>=6,'bg-warning':movie.imdb.rating>=4&&movie.imdb.rating<6,'bg-danger':movie.imdb.rating<4}">{{ movie.imdb.rating }}</small>
-            </div>
             <div class="pb-2"></div>
           </div>
         </div>
-
+        <div class="col-md-1 align-self-center">
+          <small class="badge p-3" [ngClass]="{'bg-success':movie.imdb.rating>=6,'bg-warning':movie.imdb.rating>=4&&movie.imdb.rating<6,'bg-danger':movie.imdb.rating<4}">{{ movie.imdb.rating }}</small>
+        </div>
         <div class="col-md-1 remove d-flex">
           <h3 class="ms-auto align-self-center">
-            <span (click)="removeMovie(movie)">X</span>
-            <!--<fa-icon [icon]="faTrash"></fa-icon>-->
+            <!--<span (click)="removeMovie(movie)">X</span>-->
+            <fa-icon (click)="removeMovie(movie)" class="text-danger" [icon]="faTrashCan"></fa-icon>
           </h3>
         </div>
       </div>
