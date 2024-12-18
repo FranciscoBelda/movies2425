@@ -1,10 +1,10 @@
-import {Component, inject, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Movie} from "../../common/movie";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {faPlusCircle, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -21,10 +21,8 @@ export class ModalComponent implements OnInit{
   @Input({required: true}) movie!: Movie;
   @Input({required: true}) editar!: boolean;
   @Input({required: true}) genres!: string[];
-  @ViewChild('modalTemplate') modalTemplate!: TemplateRef<any>;
   activeModal = inject(NgbActiveModal);
   faPlusCircle = faPlusCircle;
-  private readonly modalService: NgbModal = inject(NgbModal);
 
   private readonly movieService: MovieService = inject(MovieService);
 
@@ -43,12 +41,12 @@ export class ModalComponent implements OnInit{
     })
   });
 
+  // Form para nuevo género
   myNewGenre = new FormGroup({
     newGenre: new FormControl('')
   });
 
-
-
+  // GETTERS
   get title(): any{
     return this.formMovie.get('title');
   }
@@ -78,22 +76,27 @@ export class ModalComponent implements OnInit{
   }
 
 
-
-
-
-
+  // Función para añadir un nuevo género
   addNewGenre(newGenre: any) {
     let newGenres;
+    // si es nueva película añadimos el género a nuestra
+    // lista de géneros de la base de datos
     if (!this.editar)this.genres.push(newGenre);
+      // si no entonces tenemos que añadir el género a los géneros
+    //  seleccionados de la película que estamos actualizando
     else {
+      // Cogemos los géneros actuales
       newGenres = this.formMovie.getRawValue().genres;
+      // Le añadimos el nuevo género a los actuales y al auxiliar
       newGenres.push(newGenre);
       this.genres.push(newGenre);
+      // Actualizamos los géneros seleccionados con el auxiliar
       this.formMovie.setControl('genres',new FormControl(newGenres));
     }
     this.myNewGenre.reset();
   }
 
+  // Método para añadir o editar, según el valor de la variable editar
   onSubmit() {
     if(this.editar){
       this.movieService.updateMovie(this.formMovie.getRawValue()).subscribe(

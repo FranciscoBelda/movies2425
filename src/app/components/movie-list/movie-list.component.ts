@@ -2,11 +2,9 @@ import {Component, inject} from '@angular/core';
 import {MovieService} from "../../services/movie.service";
 import {Movie} from "../../common/movie";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import { ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import { NgbModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ModalComponent} from "../modal/modal.component";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons/faTrashCan";
 
 @Component({
@@ -14,7 +12,6 @@ import {faTrashCan} from "@fortawesome/free-solid-svg-icons/faTrashCan";
   standalone: true,
   imports: [
     FaIconComponent,
-    ReactiveFormsModule,
     CommonModule,
     NgbModalModule
   ],
@@ -59,11 +56,15 @@ export class MovieListComponent {
   }
 
 
+  // Función para crear una nueva película, para lo que
+  // abrirá el modal y pasará el listado de géneros
   newMovie() {
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.editar = false;
     modalRef.componentInstance.genres = this.genres;
   }
+  /* Función para editar una película, para lo que abrirá
+   el modal y pasará la película y el listado de géneros */
   loadMovie(movie: Movie) {
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.movie = movie;
@@ -95,6 +96,5 @@ export class MovieListComponent {
 
   }
 
-  protected readonly faTrash = faTrash;
   protected readonly faTrashCan = faTrashCan;
 }

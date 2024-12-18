@@ -2,40 +2,41 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Movie} from "../common/movie";
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
   private readonly http: HttpClient = inject(HttpClient);
-  private readonly baseURL = 'http://localhost:3000/api/movies/';
   constructor() { }
 
   getMovieList(): Observable<Movie[]>{
-    return this.http.get<Movie[]>(this.baseURL);
+    return this.http.get<Movie[]>(environment.apiUrl);
   }
 
   getOneMovie(id: string): Observable<Movie>{
-    return this.http.get<Movie>(this.baseURL+'movie/'+id);
+    return this.http.get<Movie>(environment.apiUrl+'movie/'+id);
   }
 
   addMovie(movie: Movie): Observable<StatusMessage>{
-    return this.http.post<StatusMessage>(this.baseURL,movie);
+    return this.http.post<StatusMessage>(environment.apiUrl,movie);
   }
 
   updateMovie(movie: Movie): Observable<StatusMessageUpdate>{
-    return this.http.put<StatusMessageUpdate>(this.baseURL+movie._id, movie);
+    return this.http.put<StatusMessageUpdate>(environment.apiUrl+movie._id, movie);
   }
 
   deleteMovie(id: string): Observable<StatusMessage>{
-    return this.http.delete<StatusMessage>(this.baseURL+id);
+    return this.http.delete<StatusMessage>(environment.apiUrl+id);
   }
 
   getGenres(): Observable<string[]>{
-    return this.http.get<string[]>(this.baseURL+'getGenres');
+    return this.http.get<string[]>(environment.apiUrl+'getGenres');
   }
 }
 
+// Añadimos las interfaces de respuesta de la API
 export interface StatusMessage{
   status: string;
 }

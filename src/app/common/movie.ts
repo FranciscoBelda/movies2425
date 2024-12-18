@@ -7,7 +7,6 @@ export interface Movie {
   plot: string
   genres: string[]
   poster: string
-  __v: number
 }
 
 export interface Imdb {
