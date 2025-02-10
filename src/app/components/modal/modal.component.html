@@ -62,18 +62,7 @@
               Plot</label>
           </div>
           <!-- select genres -->
-          @if(editar){
-            <div>
-              <label for="Select">Genres</label>
-              <select class="form-select" id="Select"
-                      aria-label="Genres" multiple
-                      formControlName="genres">
-                @for (gen of genres;track $index){
-                  <option [value]="gen">{{ gen }}</option>
-                }
-              </select>
-            </div>
-          } @else {
+
             <div>
               <label for="newSelect">Genres</label>
               <select class="form-select" id="newSelect"
@@ -84,7 +73,7 @@
                 }
               </select>
             </div>
-          }
+          
 
 
           <!-- Add New Genre -->
